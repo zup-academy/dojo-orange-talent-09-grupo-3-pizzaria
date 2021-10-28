@@ -1,3 +1,8 @@
+# Participantes:
+- Natacha Duarte
+- 
+-
+
 # Pizzaria
 
 A ideia aqui é realizar a resolução de problemas (troubleshooting) e a criação de testes unitários e de integração para
@@ -31,4 +36,6 @@ Meta: Ter pelo menos **75%** do projeto coberto por testes.
 > Se atente as fronteiras do seu teste;
 > 
 > Caminhos felizes e caminhos tristes precisam ser testados.
-> 
+
+
+
