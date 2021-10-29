@@ -70,15 +70,46 @@ class NovoIngredienteControllerTest {
     }
 
     @Test
-    @ParameterizedTest
-    @NullAndEmptySource
-    void naoDeveCadastrarNovoIngredienteComNomeInvalido(String nome) throws Exception {
-        NovoIngredienteRequest body = new NovoIngredienteRequest(nome, new BigDecimal("2.0"), 200);
+    void naoDeveCadastrarNovoIngredienteComNomeInvalido() throws Exception {
+        NovoIngredienteRequest body = new NovoIngredienteRequest("", new BigDecimal("2.0"), 200);
         MockHttpServletRequestBuilder request = post("/api/ingredientes")
                                                 .contentType(MediaType.APPLICATION_JSON)
                                                 .content(new ObjectMapper().writeValueAsString(body));
 
         mvc.perform(request)
            .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void naoDeveCadastrarNovoIngredienteComPrecoNulo() throws Exception {
+        NovoIngredienteRequest body = new NovoIngredienteRequest("Farinha", null, 200);
+        MockHttpServletRequestBuilder request = post("/api/ingredientes")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(body));
+
+        mvc.perform(request)
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void naoDeveCadastrarNovoIngredienteComPrecoNegativo() throws Exception {
+        NovoIngredienteRequest body = new NovoIngredienteRequest("Farinha", new BigDecimal("-20") , 200);
+        MockHttpServletRequestBuilder request = post("/api/ingredientes")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(body));
+
+        mvc.perform(request)
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void naoDeveCadastrarNovoIngredienteComQuantidadeNegativo() throws Exception {
+        NovoIngredienteRequest body = new NovoIngredienteRequest("Farinha", new BigDecimal("25") , -2);
+        MockHttpServletRequestBuilder request = post("/api/ingredientes")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(body));
+
+        mvc.perform(request)
+                .andExpect(status().isBadRequest());
     }
 }
