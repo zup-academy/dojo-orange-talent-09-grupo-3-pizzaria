@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class Pizza {
@@ -39,11 +40,10 @@ public class Pizza {
     }
 
     private void calcularPreco() {
-        this.preco.add(PRECO_MASSA);
-        this.preco.add(PRECO_MAO_DE_OBRA);
-        this.ingredientes.stream()
-                .map(Ingrediente::getPreco)
-                .forEach(preco::add);
+        BigDecimal total = PRECO_MASSA.add(PRECO_MAO_DE_OBRA);
+        this.preco =  this.ingredientes.stream()
+                .map(ingrediente -> ingrediente.getPreco())
+                .reduce(total, BigDecimal::add);
     }
 
     public Long getId() {
@@ -51,6 +51,7 @@ public class Pizza {
     }
 
     public BigDecimal getPreco() {
+        this.calcularPreco();
         return preco;
     }
 
