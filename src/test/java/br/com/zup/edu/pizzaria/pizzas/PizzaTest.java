@@ -38,11 +38,25 @@ class PizzaTest {
     public void deveCalcularPizzaComMaisDeUmIngrediente() {
         Ingrediente ingrediente1 = new Ingrediente("Muçarela", 10, new BigDecimal("15.0"));
         Ingrediente ingrediente2 = new Ingrediente("Brocolis", 10, new BigDecimal("15.0"));
-        List<Ingrediente> ingredientes = new ArrayList<>();
+        List<Ingrediente> ingredientes = List.of(ingrediente1,ingrediente2);
+
         Pizza pizza1 = new Pizza("Calabresa", ingredientes);
 
         BigDecimal esperado = new BigDecimal("50.0");
         Assertions.assertEquals(esperado, pizza1.getPreco());
     }
+
+    @Test
+    public void deveCalcularPizzaComListaDeIngredientesNull() {
+        Ingrediente ingrediente1 = new Ingrediente("Muçarela", 10, new BigDecimal("15.0"));
+        Ingrediente ingrediente2 = new Ingrediente("Brocolis", 10, new BigDecimal("15.0"));
+        List<Ingrediente> ingredientes = List.of(ingrediente1,ingrediente2);
+
+        Pizza pizza1 = new Pizza("Calabresa", ingredientes);
+
+        BigDecimal esperado = new BigDecimal("50.0");
+        Assertions.assertEquals(esperado, pizza1.getPreco());
+    }
+
 
 }
