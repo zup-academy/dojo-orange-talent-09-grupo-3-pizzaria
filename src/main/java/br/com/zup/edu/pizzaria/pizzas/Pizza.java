@@ -27,6 +27,7 @@ public class Pizza {
     private List<Ingrediente> ingredientes = new ArrayList<>();
 
     public Pizza(String sabor, List<Ingrediente> ingredientes) {
+        if(ingredientes == null) throw new IllegalArgumentException("");
         this.sabor = sabor;
         this.ingredientes = ingredientes;
         calcularPreco();
